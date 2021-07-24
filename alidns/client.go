@@ -6,7 +6,6 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/alidns"
-	"github.com/jetstack/cert-manager/pkg/issuer/acme/dns/util"
 )
 
 type Client struct {
@@ -24,21 +23,22 @@ func newClient(region string, cred auth.Credential) (*Client, error) {
 }
 
 func (c *Client) getHostedZone(zone string) (string, error) {
-	request := alidns.CreateDescribeDomainsRequest()
-	request.KeyWord = util.UnFqdn(zone)
-	request.SearchMode = "EXACT"
+	// request := alidns.CreateDescribeDomainsRequest()
+	// request.KeyWord = util.UnFqdn(zone)
+	// request.SearchMode = "EXACT"
 
-	response, err := c.dnsc.DescribeDomains(request)
-	if err != nil {
-		return "", err
-	}
+	// response, err := c.dnsc.DescribeDomains(request)
+	// if err != nil {
+	// 	return "", err
+	// }
 
-	zones := response.Domains.Domain
-	if len(zones) == 0 {
-		return "", fmt.Errorf("zone %s does not exist", zone)
-	}
+	// zones := response.Domains.Domain
+	// if len(zones) == 0 {
+	// 	return "", fmt.Errorf("zone %s does not exist", zone)
+	// }
 
-	return zones[0].DomainName, nil
+	// return zones[0].DomainName, nil
+	return zone, nil
 }
 
 func (c *Client) addTxtRecord(zone, rr, value string) error {
